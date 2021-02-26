@@ -16,7 +16,7 @@ export class ViewComponent implements OnInit {
   }
 
   getComments(): void {
-    this.comments = this.commentsService.getComments();
+    this.commentsService.getComments().subscribe(comments => this.comments = comments);
   }
 
 }

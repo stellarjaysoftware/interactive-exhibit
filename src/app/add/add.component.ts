@@ -21,17 +21,26 @@ export class AddComponent implements OnInit {
     this.location.back();
   }
 
-  validate(): void {
+  validate(): boolean {
+    const message = 'Please review your entries and retry.';
     if (!this.comment.text) {
-      this.error = 'Please review your entries and retry.';
+      this.error = message;
+      return false;
+    } else {
+      this.comment.text = this.comment.text.trim();
+      if (!this.comment.text) {
+        this.error = message;
+        return false;
+      } else {
+        return true;
+      }
     }
   }
 
   save(): void {
-    if (this.comment && this.comment.text) {
-      this.commentsService.add(this.comment);
+    if (this.validate()) {
+      this.commentsService.addComment(this.comment)
+        .subscribe(() => this.goBack());
     }
-    this.goBack();
-      // .subscribe(() => this.goBack());
   }
 }

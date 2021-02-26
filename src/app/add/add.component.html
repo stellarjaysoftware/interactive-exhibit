@@ -1,7 +1,8 @@
 <!--TODO: figure out how to make exhibit dynamic-->
-<h2><label for="name">What did you think of the exhibit?</label></h2>
-<div>
-  <textarea id="name" [(ngModel)]="comment.text" placeholder="your comment" maxlength="250"></textarea>
+<h2><label for="comment">What did you think of the exhibit?</label></h2>
+<div class="form">
+  <textarea id="comment" [(ngModel)]="comment.text" placeholder="your comment" maxlength="250"></textarea><br />
+  <input id="name" [(ngModel)]="comment.name" placeholder="name" maxlength="120" /> (optional)
+  <div>{{this.error}}</div>
+  <button (click)="save()">save</button>
 </div>
-<div>{{this.error}}</div>
-<button (click)="save()">save</button>

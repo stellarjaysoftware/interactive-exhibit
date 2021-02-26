@@ -8,6 +8,7 @@ import { ViewComponent } from './view/view.component';
 import { AddComponent } from './add/add.component';
 import {FormsModule} from '@angular/forms';
 import { NavigationComponent } from './navigation/navigation.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavigationComponent } from './navigation/navigation.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

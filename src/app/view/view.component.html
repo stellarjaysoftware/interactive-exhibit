@@ -1,7 +1,6 @@
-<h2>Comments</h2>
-
 <div class="comments">
-  <div *ngFor="let comment of comments">
-    {{comment.text}}
+  <div *ngFor="let comment of comments" class="comment">
+    <div class="comment__text">{{comment.text}}</div>
+    <div class="comment__name">- {{comment.name || 'anonymous'}}</div>
   </div>
 </div>
