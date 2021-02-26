@@ -1,0 +1,8 @@
+textarea {
+  font-family: sans-serif;
+  width: 400px;
+  height: 80px;
+  @media screen and (max-width: 400px) {
+    width: 100%;
+  }
+}
