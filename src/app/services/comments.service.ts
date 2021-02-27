@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Comment } from '../models/comment';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Comment } from '../models/comment';
 })
 export class CommentsService {
   comments: Comment[] = [];
+  nextCommentIndex = 0;
   // TODO: make this environment sensitive
   private commentsUrl = 'http://localhost:3000/comments';  // URL to web api
   httpOptions = {
@@ -20,7 +21,39 @@ export class CommentsService {
     this.comments.push(comment);
   }
 
-  getComments(): Observable<Comment[]> {
+  getCommentsToDisplay(numComments: number): Comment[] {
+    // get the first X comments
+    let commentsToDisplay = this.comments.slice(this.nextCommentIndex, numComments + this.nextCommentIndex);
+    const remainder = numComments - commentsToDisplay.length;
+    if (remainder) { // pull from front
+      commentsToDisplay = commentsToDisplay.concat(this.comments.slice(0, remainder));
+    }
+    if (this.nextCommentIndex === this.comments.length) {
+      this.nextCommentIndex = 0;
+    } else {
+      this.nextCommentIndex++;
+    }
+    return commentsToDisplay.reverse();
+  }
+  // getCommentsToDisplay(numComments: number, delay: number): Observable<Comment[]> {
+    // const comments = interval(delay * 1000);
+    // return timer(delay * 1000);
+    // return of(this.comments); // .timer(0, delay * 1000);
+    // setTimeout(() => {
+    //   return commentsToDisplay;
+    // }, delay * 1000);
+  // }
+
+  async getComments(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.fetchComments().subscribe(comments => {
+        this.comments = comments;
+        resolve();
+      });
+    });
+  }
+
+  fetchComments(): Observable<Comment[]> {
     return this.http.get<Comment[]>(this.commentsUrl)
       .pipe(
         tap(_ => this.log('fetched comments')),
