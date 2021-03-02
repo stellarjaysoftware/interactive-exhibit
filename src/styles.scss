@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+a {
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.error {
+  color: red;
+  margin: 5px 0;
+}

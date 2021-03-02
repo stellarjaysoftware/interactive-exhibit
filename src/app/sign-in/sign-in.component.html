@@ -1,0 +1,22 @@
+<h2>Admin {{mode}}</h2>
+<div class="form">
+  <span *ngIf="mode === SignInMode.create">
+    <label for="name">name</label>:
+    <input id="name" [(ngModel)]="name" type="text" placeholder="name" /><br />
+  </span>
+  <label for="email">email</label>:
+  <input id="email" [(ngModel)]="email" type="text" placeholder="email" /><br />
+  <label for="password">password</label>:
+  <input id="password" [(ngModel)]="password" type="password" placeholder="password" /><br />
+  <span *ngIf="mode === SignInMode.create">
+    <label for="password">repeat</label>:
+    <input id="password2" [(ngModel)]="password2" type="password" placeholder="password again" /><br />
+  </span>
+  <div *ngIf="error" class="error">{{this.error}}</div>
+  <button (click)="handleSubmit()">{{mode}}</button>
+
+  <div class="mode-toggle">
+    <a (click)="handleToggleMode()">{{mode === SignInMode.signIn ? SignInMode.create : SignInMode.signIn}}</a>
+  </div>
+</div>
+

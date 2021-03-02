@@ -9,6 +9,8 @@ import { AddComponent } from './add/add.component';
 import {FormsModule} from '@angular/forms';
 import { NavigationComponent } from './navigation/navigation.component';
 import {HttpClientModule} from '@angular/common/http';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import {HttpClientModule} from '@angular/common/http';
     PageNotFoundComponent,
     ViewComponent,
     AddComponent,
-    NavigationComponent
+    NavigationComponent,
+    SignInComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

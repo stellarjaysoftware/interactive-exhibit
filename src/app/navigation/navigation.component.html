@@ -1,4 +1,6 @@
 <nav>
   <a routerLink="/view" [ngClass]="{'on': screen === '/view'}">view comments</a>
   <a routerLink="/add" [ngClass]="{'on': screen === '/add'}">add comment</a>
+  <a routerLink="/admin" [ngClass]="{'on': screen === '/admin'}">admin</a>
+  <a *ngIf="signedIn" (click)="signOut()">sign out</a>
 </nav>

@@ -1,10 +1,8 @@
-export class Comment {
+export class User {
   constructor(
     // tslint:disable-next-line:variable-name
     public _id?: string,
-    public text?: string,
     public name?: string,
-    public userId?: number,
-    public hidden: boolean = false) {
+    public email?: string) {
   }
 }

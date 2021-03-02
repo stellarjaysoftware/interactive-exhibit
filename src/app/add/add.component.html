@@ -3,6 +3,6 @@
 <div class="form">
   <textarea id="comment" [(ngModel)]="comment.text" placeholder="your comment" maxlength="250"></textarea><br />
   <input id="name" [(ngModel)]="comment.name" placeholder="name" maxlength="120" /> (optional)
-  <div>{{this.error}}</div>
+  <div *ngIf="error" class="error">{{this.error}}</div>
   <button (click)="save()">save</button>
 </div>

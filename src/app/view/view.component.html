@@ -1,4 +1,8 @@
 <div class="comments">
+  <div *ngIf="error" class="error">
+    {{error}}<br />
+    <button (click)="getCommentsAndAnimate(true)">try again</button>
+  </div>
   <div *ngFor="let comment of comments" class="comment">
     <div class="comment__text">{{comment.text}}</div>
     <div class="comment__name">- {{comment.name || 'anonymous'}}</div>
