@@ -1,0 +1,17 @@
+.comments {
+  .comment {
+    display: grid;
+    grid-template-columns: auto 180px 110px;
+    &:nth-child(even)  {
+      background-color: #eee;
+    }
+    .hidden {
+      text-decoration: line-through;
+    }
+    //margin: 20px;
+    &__text.hidden {}
+    &__name {
+      //font-size: 16px;
+    }
+  }
+}

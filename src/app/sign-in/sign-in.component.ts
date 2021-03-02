@@ -39,7 +39,6 @@ export class SignInComponent implements OnInit {
   // TODO: improve form validation: https://angular.io/guide/form-validation
   validate(): boolean {
     const message = 'Please review your entries and retry.';
-    console.log('email', this.email, 'password', this.password, 'name', this.name);
     this.name = this.name && this.name.trim();
     this.email = this.email && this.email.trim();
     this.password = this.password && this.password.trim();

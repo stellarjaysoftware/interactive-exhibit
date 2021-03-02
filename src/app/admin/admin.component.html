@@ -1,11 +1,23 @@
 <h2>Exhibit comment administration</h2>
-<p>must be logged in</p>
+
+<h3>All Comments</h3>
+<div class="comments">
+  <div *ngFor="let comment of comments" class="comment">
+    <div class="comment__text" [ngClass]="{'hidden': comment.hidden}">{{comment.text}}</div>
+    <div class="comment__name" [ngClass]="{'hidden': comment.hidden}">- {{comment.name || 'anonymous'}}</div>
+    <div class="comment__controls">
+      <button (click)="toggleHideComment(comment?._id, !comment.hidden)">{{comment.hidden ? 'show' : 'hide'}}</button>
+      <button (click)="deleteComment(comment?._id)">delete</button>
+    </div>
+  </div>
+</div>
+
+<h3>Features</h3>
 <p>user to be associated to a Collection (museum/business/etc)</p>
-<h3>features</h3>
 <ul>
   <li>CRUD collections</li>
   <li>manage other admin user access to collection</li>
   <li>CRUD exhibits</li>
-  <li>RUD comments</li>
+  <li style="text-decoration: line-through">RUD comments</li>
   <li>future: CRUD survey</li>
 </ul>

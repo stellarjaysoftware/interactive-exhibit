@@ -11,7 +11,7 @@ import {interval, Subscription} from 'rxjs';
 export class ViewComponent implements OnInit, OnDestroy {
   animationSubscription?: Subscription;
   numComments = 3;
-  cycleDelay = 5; // seconds
+  cycleDelay = 3; // seconds
   comments: Comment[] = [];
   error?: string;
 

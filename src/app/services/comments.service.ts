@@ -12,8 +12,6 @@ import {LoggerService} from './logger.service';
 export class CommentsService {
   comments: Comment[] = [];
   nextCommentIndex = 0;
-  // TODO: make this environment sensitive
-  private commentsUrl = 'http://localhost:3000/comments';  // URL to web api
   constructor(private http: HttpClient, private logger: LoggerService,
               private api: ExhibitApiService) {
   }
@@ -37,12 +35,41 @@ export class CommentsService {
     return commentsToDisplay.reverse();
   }
 
-  fetchComments(): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.api.getCommentsPath())
+  fetchComments(all: boolean = false): Observable<Comment[]> {
+    const path = this.api.getCommentsPath() + (all ? '?all=true' : '');
+    return this.http.get<Comment[]>(path)
       .pipe(
         tap((comments: Comment[]) => {
-          this.logger.log('fetched comments');
           this.comments = comments;
+          this.logger.log('fetched comments');
+        }),
+        catchError(error => {
+          this.logger.log(error, true);
+          throw error;
+        })
+      );
+  }
+
+  updateComment(id: string, updates: {}): Observable<Comment> {
+    const path = `${this.api.getCommentsPath()}/${id}`;
+    return this.http.patch<Comment>(path, updates, this.api.getOptions())
+      .pipe(
+        tap((comment: Comment) => {
+          this.logger.log('updated comment');
+        }),
+        catchError(error => {
+          this.logger.log(error, true);
+          throw error;
+        })
+      );
+  }
+
+  deleteComment(id: string): Observable<Comment> {
+    const path = `${this.api.getCommentsPath()}/${id}`;
+    return this.http.delete<Comment>(path, this.api.getOptions())
+      .pipe(
+        tap((comment: Comment) => {
+          this.logger.log('updated deleted');
         }),
         catchError(error => {
           this.logger.log(error, true);
@@ -53,7 +80,7 @@ export class CommentsService {
 
   /** POST: add a new hero to the server */
   addComment(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(this.commentsUrl, comment, this.api.getOptions()).pipe(
+    return this.http.post<Comment>(this.api.getCommentsPath(), comment, this.api.getOptions()).pipe(
       tap((newComment: Comment) => this.logger.log(`added comment w/ id=${newComment._id}`)),
       catchError(this.handleError<Comment>('addComment'))
     );
